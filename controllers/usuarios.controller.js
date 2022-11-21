@@ -11,11 +11,16 @@ exports.login = function(req, res, next){
             token:null
         }
         if(usuario !== null){
-            response.token = jwt.sign({
+            response.token = jwt.sign(
+                {
                 id: usuario._id,
-                usuario: usuario.usuario
-            }, "__recret__")
+                usuario: usuario.usuario,
+            }, 
+            "__recret__",
+            {expiresIn: "12h"}
+            );
         }
-        res.json(response)
-    })
-}
+        res.json(response);
+    }
+    );
+};
